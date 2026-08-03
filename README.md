@@ -1,5 +1,15 @@
 # Canstrox
 
+![Canstrox Banner](assets/banner.png)
+
+[![Hackathon](https://img.shields.io/badge/Reverie%20Hacks-2026-8A2BE2?style=for-the-badge)](https://github.com/<your-username>/canstrox)
+[![Made with HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](#)
+[![Made with CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](#)
+[![Made with JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](#)
+[![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](#)
+[![Deployed on Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](#)
+[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red?style=for-the-badge)](#copyright)
+
 > Learn Programming. Level Up. Have Fun.
 
 Canstrox is a gamified web-based programming learning platform that transforms traditional programming education into an interactive and engaging experience through levels, challenges, achievements, and progress tracking.
