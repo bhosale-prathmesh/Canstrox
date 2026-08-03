@@ -1,0 +1,201 @@
+[
+  {
+    "questionNo": 1,
+    "type": "sequence",
+    "options": ["print", "(", "\"Hello\"", ")"],
+    "correctSequence": [1,2,3,4],
+    "terminal": [
+      "Hello"
+    ]
+  },
+
+  {
+    "questionNo": 2,
+    "type": "match",
+    "left": [
+      "print(\"Hello\")",
+      "print(2 + 3)",
+      "print(4 * 2)",
+      "print(\"Python\")"
+    ],
+    "right": [
+      "Hello",
+      "5",
+      "8",
+      "Python"
+    ],
+    "correctSequence": [1,2,3,4],
+    "terminal": [
+      "Program Executed"
+    ]
+  },
+
+  {
+    "questionNo": 3,
+    "type": "sequence",
+    "options": ["print", "(", "2 + 3", ")"],
+    "correctSequence": [1,2,3,4],
+    "terminal": [
+      "5"
+    ]
+  },
+
+  {
+    "questionNo": 4,
+    "type": "match",
+    "left": [
+      "2 + 3",
+      "8 - 2",
+      "4 * 2",
+      "10 / 2"
+    ],
+    "right": [
+      "5",
+      "6",
+      "8",
+      "5.0"
+    ],
+    "correctSequence": [1,2,3,4],
+    "terminal": [
+      "Computer calculated the expressions."
+    ]
+  },
+
+  {
+    "questionNo": 5,
+    "type": "sequence",
+    "options": ["print", "(", "\"Learnova\"", ")"],
+    "correctSequence": [1,2,3,4],
+    "terminal": [
+      "Learnova"
+    ]
+  },
+
+  {
+    "questionNo": 6,
+    "type": "fill-blank",
+    "lines": [
+      "print(\"%%\")"
+    ],
+    "options": [
+      "Python",
+      "Java"
+    ],
+    "correctSequence": [1],
+    "terminal": [
+      "Python"
+    ]
+  },
+
+  {
+    "questionNo": 7,
+    "type": "match",
+    "left": [
+      "print()",
+      "\"Hello\"",
+      "(",
+      ")"
+    ],
+    "right": [
+      "Display Output",
+      "Text",
+      "Opening Bracket",
+      "Closing Bracket"
+    ],
+    "correctSequence": [1,2,3,4],
+    "terminal": [
+      "Syntax Recognized"
+    ]
+  },
+
+  {
+    "questionNo": 8,
+    "type": "sequence",
+    "options": ["print", "(", "10 - 4", ")"],
+    "correctSequence": [1,2,3,4],
+    "terminal": [
+      "6"
+    ]
+  },
+
+  {
+    "questionNo": 9,
+    "type": "fill-blank",
+    "lines": [
+      "print(%%)"
+    ],
+    "options": [
+      "3 + 4",
+      "\"3 + 4\""
+    ],
+    "correctSequence": [1],
+    "terminal": [
+      "7"
+    ]
+  },
+
+  {
+    "questionNo": 10,
+    "type": "code-sequence",
+    "lines": [
+      {
+        "code": "print(\"Mini Calculator\")",
+        "indent": 0
+      },
+      {
+        "code": "print(2 + 3)",
+        "indent": 0
+      },
+      {
+        "code": "print(4 * 2)",
+        "indent": 0
+      },
+      {
+        "code": "print(\"Done\")",
+        "indent": 0
+      }
+    ],
+    "correctSequence": [1,2,3,4],
+    "terminal": [
+      "Mini Calculator",
+      "5",
+      "8",
+      "Done"
+    ]
+  },
+
+  {
+    "questionNo": 11,
+    "type": "sequence",
+    "options": ["print", "(", "8 / 2", ")"],
+    "correctSequence": [1,2,3,4],
+    "terminal": [
+      "4.0"
+    ]
+  },
+
+  {
+    "questionNo": 12,
+    "type": "code-sequence",
+    "lines": [
+      {
+        "code": "print(\"Score\")",
+        "indent": 0
+      },
+      {
+        "code": "print(10 + 5)",
+        "indent": 0
+      },
+      {
+        "code": "print(\"Finished\")",
+        "indent": 0
+      }
+    ],
+    "correctSequence": [1,2,3],
+    "terminal": [
+      "Score",
+      "15",
+      "Finished"
+    ]
+  }
+]

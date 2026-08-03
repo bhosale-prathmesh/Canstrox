@@ -1,0 +1,90 @@
+<head>
+    <style>
+        
+/* =========================
+   MATCH QUESTION
+========================= */
+
+.match-container {
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    width: 100%;
+    height: 100%;
+    gap: 80px;
+    margin-top: 120px;
+}
+
+.match-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.match-item {
+    width: 100%;
+    min-height: 54px;
+
+    padding: 14px 18px;
+
+    background: var(--bg-card);
+
+    border: 2px solid var(--border);
+    border-radius: 12px;
+
+    color: var(--text);
+
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.match-item:hover {
+    border-color: var(--accent-b);
+}
+
+.match-item.selected {
+    border-color: var(--accent-a);
+    background: var(--bg-elevated);
+    box-shadow: 0 0 14px rgba(124, 92, 255, .35);
+}
+
+.match-item.connected {
+    opacity: .85;
+    border-color: var(--success);
+}
+
+.match-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+    </style>
+</head>
+<div class="match-container">
+
+    <div class="match-column left-column">
+
+        <!-- Left Options -->
+
+    </div>
+
+    <div class="match-column right-column">
+
+        <!-- Right Options -->
+
+    </div>
+
+    <!-- SVG Lines -->
+    <svg class="match-lines"></svg>
+
+</div>

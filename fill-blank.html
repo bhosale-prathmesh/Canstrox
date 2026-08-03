@@ -1,0 +1,126 @@
+<!-- Fill-Blank (Cloze) Question Layout
+     JSON format:
+     {
+       "type": "fill-blank",
+       "lines": [
+         "print(\"%%\")\n"
+       ],
+       "options": ["\"Learnova\"", "18"],
+       "correctSequence": [1, 2]
+     }
+
+     - "%%" jaha bhi kisi line ke text ke ANDAR (kahin bhi, beech
+       me bhi) milega, wahi ek BLANK (drop space) ban jaayega.
+       Blanks ko unke milne ke ORDER se hi 1st, 2nd, 3rd... blank
+       maana jaata hai — "correctSequence" isi order se match
+       hota hai option ke 1-based index se.
+     - "\n" jaha bhi milega (usi text ke andar, kisi bhi position
+       par), us jagah se UI turant agli line par chala jaata hai —
+       baaki bacha hua text/blank us NAYI line me continue hota hai. -->
+
+<div class="cloze-lines"></div>
+
+<!-- Middle Horizontal Line -->
+<div class="middle-line"></div>
+
+<!-- Options Pool (reuse existing global .drag-zone/.word-btn —
+     "normal" block style, koi puzzle joining nahi) -->
+<div class="drag-zone"></div>
+
+<!-- Sirf is question-type (fill-blank) ke liye scoped styles -->
+<style>
+
+    .cloze-lines {
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+
+        /* Fixed/rigid height — content zyada ho to sirf yahi box
+           scroll karega, page/baaki UI hilega nahi */
+        height: clamp(280px, 45vh, 440px);
+        overflow-y: auto;
+        overflow-x: auto;
+
+        padding: 16px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+    }
+
+    .cloze-lines::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .cloze-lines::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .cloze-lines::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 8px;
+    }
+
+    .cloze-lines::-webkit-scrollbar-thumb:hover {
+        background: #3A4870;
+    }
+
+    .cloze-line {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 6px;
+        max-width: 100%;
+        line-height: 1.8;
+    }
+
+    .cloze-text-segment {
+        font-family: var(--font-code);
+        color: var(--text);
+        font-size: clamp(14px, 3vw, 18px);
+        white-space: pre;
+    }
+
+    /* Empty blank — poora box NAHI dikhega, sirf ek halki
+       underline jaisa hint ki yaha kuch drop/click karna hai */
+    .blank-slot {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: clamp(60px, 18vw, 100px);
+        height: 36px;
+        margin: 0 2px;
+        border: none;
+        border-bottom: 2px solid var(--border);
+    }
+
+    /* Fill hone ke baad underline hata do — ab sirf normal
+       .word-btn block hi dikhega (koi extra box/border nahi) */
+    .blank-slot:has(.word-btn) {
+        border-bottom-color: transparent;
+    }
+
+    /* Jab blank abhi scroll ke bahar tha aur auto-scroll ho raha
+       hai, tab tak halka glow dikhao taaki user ko pata chale
+       ki drop kaha ho raha hai */
+    .blank-slot.scroll-highlight {
+        animation: blank-scroll-pulse .35s ease;
+    }
+
+    @keyframes blank-scroll-pulse {
+        0%, 100% {
+            border-bottom-color: var(--border);
+        }
+        50% {
+            border-bottom-color: var(--accent-b);
+            box-shadow: 0 4px 10px rgba(34, 211, 238, .35);
+        }
+    }
+
+</style>

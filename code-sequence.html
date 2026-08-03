@@ -1,0 +1,210 @@
+<!-- Code Sequence Question Layout
+     (self-contained: apne scoped styles ke saath, taaki global
+     style.css ko touch na karna pade — jaise sequence.html/match.html
+     apni generic classes global CSS se use karte hain, waise hi
+     ye apna khud ka look apne saath leke aata hai) -->
+
+<style>
+    .code-editor {
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto;
+        background: #0B1220;
+        border: 1px solid #1E293B;
+        border-radius: 12px;
+        overflow: hidden;
+        font-family: "Courier New", Consolas, monospace;
+    }
+
+    .code-editor-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        background: #131C2E;
+        border-bottom: 1px solid #1E293B;
+    }
+
+    .code-editor-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+
+    .code-editor-dot.red {
+        background: #FF5F56;
+    }
+
+    .code-editor-dot.yellow {
+        background: #FFBD2E;
+    }
+
+    .code-editor-dot.green {
+        background: #27C93F;
+    }
+
+    .code-rows {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0;
+        /* Fixed height = exactly 10 rows (40px each) + top/bottom padding.
+           Isse box ki height hamesha same rahegi (10 rows dikhengi),
+           chahe question me kitni bhi lines hon — extra lines scroll
+           se dikhengi, box khud kabhi grow/shrink nahi hoga. */
+        height: calc(40px * 10 + 20px);
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+    .code-rows::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .code-rows::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .code-rows::-webkit-scrollbar-thumb {
+        background: #2A3550;
+        border-radius: 8px;
+    }
+
+    .code-rows::-webkit-scrollbar-thumb:hover {
+        background: #3A4870;
+    }
+
+    .code-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        height: 40px;
+        padding: 0 14px;
+        user-select: none;
+        border-radius: 6px;
+        transition: background .15s;
+    }
+
+    .code-row:hover {
+        background: #131C2E;
+    }
+
+    .code-row .line-number {
+        min-width: 20px;
+        text-align: right;
+        color: #475569;
+        font-size: 14px;
+        flex-shrink: 0;
+        user-select: none;
+        /* Ye column drag handle NAHI hai — touch se yahan scroll hoga */
+        touch-action: pan-y;
+        cursor: default;
+    }
+
+    .code-row .line-content {
+        white-space: pre;
+        color: #E2E8F0;
+        font-size: 15px;
+        flex: 1;
+        /* Ye hi drag handle hai */
+        touch-action: none;
+        cursor: grab;
+    }
+
+    .code-row-placeholder {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 2px dashed rgba(124, 92, 255, .6);
+        border-radius: 8px;
+        margin: 3px 14px;
+
+        background: linear-gradient(90deg, rgba(124, 92, 255, .16), rgba(34, 211, 238, .16));
+
+        animation: placeholder-pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes placeholder-pulse {
+
+        0%,
+        100% {
+            box-shadow: 0 0 6px rgba(124, 92, 255, .25);
+            border-color: rgba(124, 92, 255, .55);
+        }
+
+        50% {
+            box-shadow: 0 0 16px rgba(34, 211, 238, .45);
+            border-color: rgba(34, 211, 238, .75);
+        }
+    }
+
+    .code-row-placeholder-label {
+        font-family: "Courier New", Consolas, monospace;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .4px;
+        color: #0A0E17;
+        background: linear-gradient(90deg, #7C5CFF, #22D3EE);
+        padding: 2px 10px;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+
+    .code-row.row-dropped {
+        animation: row-drop-flash .35s ease;
+    }
+
+    @keyframes row-drop-flash {
+        0% {
+            background: rgba(124, 92, 255, .35);
+        }
+
+        100% {
+            background: transparent;
+        }
+    }
+
+    .code-row-ghost {
+        position: fixed;
+        z-index: 999;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: #1E293B;
+        border: 1px solid #22D3EE;
+        border-radius: 6px;
+        padding: 0 14px;
+        font-family: "Courier New", Consolas, monospace;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .45), 0 0 14px rgba(34, 211, 238, .35);
+    }
+
+    .code-row-ghost .line-number {
+        min-width: 20px;
+        text-align: right;
+        color: #475569;
+        font-size: 14px;
+    }
+
+    .code-row-ghost .line-content {
+        white-space: pre;
+        color: #E2E8F0;
+        font-size: 15px;
+    }
+</style>
+
+<div class="code-editor">
+
+    <div class="code-editor-header">
+        <span class="code-editor-dot red"></span>
+        <span class="code-editor-dot yellow"></span>
+        <span class="code-editor-dot green"></span>
+    </div>
+
+    <!-- Rows yahan JS (code-sequence.js) dynamically banata hai,
+         jitni lines currentQuestion.lines me hain utni hi rows -->
+    <div class="code-rows"></div>
+
+</div>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnova</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="map.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         MAP VIEW
+         (app khulte hi sabse pehle ye dikhta hai — level chunne
+         ke baad quiz-view isse replace kar deta hai. map.js
+         Firestore ke "levels" collection se levels fetch karke
+         yahan nodes render karta hai)
+    ========================== -->
+    <div class="map-view show">
+
+        <!-- Logo apni original (top-left, full-width top bar) position
+             pe hi hai — sidebar me duplicate nahi kiya -->
+        <header class="map-top-bar">
+            <h1 class="logo">Learnova</h1>
+        </header>
+
+        <div class="map-body">
+
+            <!-- Sidebar — abhi sirf static placeholder UI hai (score/XP
+                 tracking logic baad me add hogi). Desktop par left side,
+                 mobile par top horizontal strip (map.css handle karta hai) -->
+            <aside class="map-sidebar">
+                <div class="map-stats-card">
+                    <div class="map-stat">
+                        <span class="map-stat-label">Score</span>
+                        <span class="map-stat-value">0</span>
+                    </div>
+                    <div class="map-stat">
+                        <span class="map-stat-label">XP</span>
+                        <span class="map-stat-value">0</span>
+                    </div>
+                    <div class="map-stat map-stat-hearts">
+                        <span class="map-stat-label">Hearts</span>
+                        <span class="map-stat-value">❤️❤️❤️</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Chain sirf isi center column tak limited hai — right
+                 edge tak nahi jaati -->
+            <div class="map-main">
+                <div class="map-scroll">
+                    <svg class="map-lines"></svg>
+                    <div class="map-path"></div>
+                </div>
+            </div>
+
+            <!-- Right side abhi khaali/reserved hai — future features
+                 (leaderboard, streak calendar, etc.) yahan aayenge -->
+            <aside class="map-side-reserved"></aside>
+
+        </div>
+
+    </div>
+
+    <!-- =========================
+         QUIZ VIEW
+         (map se level choose karne ke baad ye dikhta hai — poora
+         purana quiz UI bilkul waisa hi hai, bas ek wrapper class
+         "quiz-view" me lapeta gaya hai taaki map ke saath toggle
+         ho sake)
+    ========================== -->
+    <div class="container quiz-view">
+        <header class="top-bar">
+            <h1 class="logo">Learnova</h1>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+            <div class="hearts">
+                ❤️ ❤️ ❤️
+            </div>
+        </header>
+        <main class="content">
+            <div class="content-area"></div>
+        </main>
+        <footer class="bottom-bar">
+            <button class="skip-btn">
+                Skip
+            </button>
+            <div class="notification"></div>
+            <button class="check-btn">
+                Check
+            </button>
+        </footer>
+
+        <!-- Terminal Output Overlay
+             Sirf tab dikhta hai jab current question ke JSON me
+             "terminal": [...] key ho aur answer correct ho.
+             Right side se glide karke center me aata hai, lines
+             ko type-karke print karta hai, phir wapas glide-out
+             hota hai (script.js handle karta hai). -->
+        <div class="terminal-overlay">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">output</span>
+                </div>
+                <div class="terminal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================
+         RESULT VIEW
+         (level ka aakhri question sahi hone par ye dikhta hai —
+         score count-up animation + Firestore "levels" collection
+         se agle level ka title fetch karke seedha "Continue"
+         button, ya "Back to Map". script.js ka showResultView()
+         inhi classes ko query karta hai)
+    ========================== -->
+    <div class="result-view">
+        <div class="result-card">
+
+            <div class="result-badge">✓</div>
+
+            <h2 class="result-title">Level Complete!</h2>
+            <p class="result-level-line">Level <span class="result-level-no"></span></p>
+
+            <div class="result-score-wrap">
+                <span class="result-score">0</span>
+                <span class="result-score-label">questions solved</span>
+            </div>
+
+            <div class="result-next">
+                <span class="result-next-label">Next Up</span>
+                <span class="result-next-title"></span>
+            </div>
+
+            <button class="result-next-btn">Continue</button>
+            <button class="result-map-btn">Back to Map</button>
+
+        </div>
+    </div>
+
+    <!-- =========================
+         PRACTICE RESULT VIEW
+         (already-completed level ko dobara/practice khelne par —
+         level 1 ki first-time completion yahan NAHI aati, sirf
+         "replay" wale practice levels — poora hone par ye dikhta
+         hai. result-view jaisa hi hai, bas "Next Up" ki jagah ek
+         hearts-row hai jo dikhata hai ki heart earn hua ya nahi.
+         script.js ka showPracticeResultView() inhi classes ko
+         query karta hai)
+    ========================== -->
+    <div class="practice-result-view">
+        <div class="practice-result-card">
+
+            <div class="practice-result-badge">✓</div>
+
+            <h2 class="practice-result-title">Practice Complete!</h2>
+            <p class="practice-result-level-line">Level <span class="practice-result-level-no"></span></p>
+
+            <div class="result-score-wrap">
+                <span class="practice-result-score">0</span>
+                <span class="result-score-label">questions solved</span>
+            </div>
+
+            <div class="practice-hearts-box">
+                <span class="practice-hearts-label">Hearts</span>
+                <div class="practice-hearts-row">
+                    <span class="practice-heart" data-index="0">🖤</span>
+                    <span class="practice-heart" data-index="1">🖤</span>
+                    <span class="practice-heart" data-index="2">🖤</span>
+                </div>
+                <p class="practice-hearts-caption"></p>
+            </div>
+
+            <button class="practice-result-map-btn">Back to Map</button>
+
+        </div>
+    </div>
+
+    <!-- =========================
+         GAME OVER VIEW
+         (hearts 0 hote hi turant dikhta hai, level ke beech me hi —
+         script.js ka showGameOverView() inhi classes ko query karta hai)
+    ========================== -->
+    <div class="gameover-view">
+        <div class="gameover-card">
+
+            <div class="gameover-badge">💔</div>
+
+            <h2 class="gameover-title">Out of Hearts!</h2>
+            <p class="gameover-stats"></p>
+
+            <button class="gameover-earn-btn">Practice to Earn a Heart</button>
+            <button class="gameover-map-btn">Back to Map</button>
+
+        </div>
+    </div>
+
+    <!-- Firebase (compat SDK — global "firebase" object deta hai,
+         isliye config.js aur script.js bina kisi module/import
+         setup ke seedha use kar sakte hain) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+    <!-- Launch flash overlay — level start hone se pehle quick
+         "warp" flash (map.js control karta hai). Body-level pe hai
+         taaki map-view aur quiz-view dono ke upar dikh sake -->
+    <div class="map-launch-flash"></div>
+
+    <script src="config.js"></script>
+
+    <script src="script.js"></script>
+    <script src="map.js"></script>
+</body>
+
+</html>
