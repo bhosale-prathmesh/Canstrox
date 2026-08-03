@@ -11,15 +11,15 @@
 // ke QuestionSource ko available ho.
 // =========================
 
-const firebaseConfig = {
-    apiKey: "AIzaSyAQI9INNkcRZ4zc9N_0DSo-77tk8Io4dwY",
-    authDomain: "learnova-launch.firebaseapp.com",
-    databaseURL: "https://learnova-launch-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "learnova-launch",
-    storageBucket: "learnova-launch.firebasestorage.app",
-    messagingSenderId: "582265849910",
-    appId: "1:582265849910:web:b5c90b78c5f2f9c860b097",
-    measurementId: "G-X2GGME9WMZ"
+  const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.REGION.firebasedatabase.app",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
+  measurementId: "YOUR_MEASUREMENT_ID"
 };
 // Firebase App Initialize
 firebase.initializeApp(firebaseConfig);
